@@ -14,10 +14,15 @@
 
 -module(qrcode).
 
--include("qrcode.hrl").
--include("qrcode_params.hrl").
+-include_lib("qrcode/include/qrcode.hrl").
+-include_lib("qrcode/include/qrcode_params.hrl").
 
--export([encode/1, encode/2, decode/1]).
+-export([
+	encode/1,
+	encode/2,
+	decode/1,
+	png_encode/1
+]).
 
 %%
 decode(_Bin) ->
@@ -43,6 +48,10 @@ encode(Bin, ECC) when is_binary(Bin) ->
 	QRCode = qrcode_matrix:finalize(Dim, FMT, VSN, ?QUIET_ZONE, SelectedMatrix),
 	%% NOTE: Added "API" record
 	#qrcode{version = Version, ecc = ECC, dimension = Dim + ?QUIET_ZONE * 2, data = QRCode}.
+
+png_encode(Bin) ->
+  Data = encode(Bin),
+  qrcode_demo:simple_png_encode(Data).
 
 %%
 choose_qr_params(Bin, ECLevel) ->
