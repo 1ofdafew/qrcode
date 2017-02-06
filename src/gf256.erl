@@ -38,12 +38,13 @@ field(PrimeModulus) ->
 	#gf256{exponent = Exponent, log = Log}.
 %
 exponent_table(X, Modulus, Acc) when length(Acc) =< ?RANGE ->
-	case X bsl 1 of
-	V when V > ?RANGE ->
-		X0 = V bxor Modulus;
-	V ->
-		X0 = V
-	end,
+	X0 =
+		case X bsl 1 of
+			V when V > ?RANGE ->
+					V bxor Modulus;
+				V ->
+					V
+		end,
 	exponent_table(X0, Modulus, [X|Acc]);
 exponent_table(_, _, Acc) ->
 	lists:reverse(Acc).

@@ -7,3 +7,6 @@
 *.png
 test/*
 work/*
+.erlang.mk
+rel
+_rel
