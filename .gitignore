@@ -5,6 +5,7 @@
 *.pdf
 *.pem
 *.png
+ebin
 test/*
 work/*
 .erlang.mk
